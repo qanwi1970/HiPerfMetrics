@@ -1,14 +1,11 @@
 ﻿/*************************************************************************
  * HiPerfMetric.cs
  ************************************************************************/
-using System;
+
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace HiPerfMetrics
 {
@@ -26,7 +23,7 @@ namespace HiPerfMetrics
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="timerName">name of the timer for reporting</param>
+        /// <param name="metricName">name of the metric for reporting</param>
         public HiPerfMetric(string metricName)
         {
             _taskList = new List<TaskInfo>();
@@ -39,12 +36,7 @@ namespace HiPerfMetrics
         /// <returns>total time in seconds</returns>
         public double GetTotalTimeInSeconds()
         {
-            double _totalTime = 0;
-            foreach (var taskInfo in _taskList)
-            {
-                _totalTime += taskInfo.Timer.Duration;
-            }
-            return _totalTime;
+            return _taskList.Sum(taskInfo => taskInfo.Timer.Duration);
         }
 
         /// <summary>
@@ -95,8 +87,8 @@ namespace HiPerfMetrics
             foreach (var task in _taskList)
             {
                 sb.Append(
-                    string.Format("{0,5} {1,6:P0}  {2,-14}", task.Timer.Duration * 1000,
-                                  (task.Timer.Duration / GetTotalTimeInSeconds()), task.Name) + "<br/>");
+                    string.Format("{0,5} {1,6:P0}  {2,-14}", task.Timer.Duration*1000,
+                                  (task.Timer.Duration/GetTotalTimeInSeconds()), task.Name) + "<br/>");
             }
 
             return sb.ToString();
@@ -107,7 +99,11 @@ namespace HiPerfMetrics
         /// </summary>
         public string SummaryMessage
         {
-            get { return string.Format("HiPerfMetric '{0}' running time - {1:0.0000} seconds", _metricName, GetTotalTimeInSeconds()); }
+            get
+            {
+                return string.Format("HiPerfMetric '{0}' running time - {1:0.0000} seconds", _metricName,
+                                     GetTotalTimeInSeconds());
+            }
         }
 
         /// <summary>
@@ -115,10 +111,7 @@ namespace HiPerfMetrics
         /// </summary>
         public IEnumerable<TaskInfo> TaskDetails
         {
-            get
-            {
-                return _taskList;
-            }
+            get { return _taskList; }
         }
     }
 }

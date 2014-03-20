@@ -1,4 +1,7 @@
-﻿using System;
+﻿/*************************************************************************
+ * HiPerfMetric.cs
+ ************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -9,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace HiPerfMetrics
 {
+    /// <summary>
+    /// This is the main class for creating associated timers.
+    /// </summary>
     public class HiPerfMetric
     {
         //Keep a list of tasks being recorded
@@ -105,7 +111,7 @@ namespace HiPerfMetrics
         }
 
         /// <summary>
-        /// Utility method for putting the task details into AdditionalFields
+        /// Utility method for putting the task details into a generic IEnumerable
         /// </summary>
         public IEnumerable<TaskInfo> TaskDetails
         {
@@ -113,18 +119,6 @@ namespace HiPerfMetrics
             {
                 return _taskList;
             }
-        }
-    }
-
-    public class TaskInfo
-    {
-        public string Name { get; private set; }
-        public HiPerfTimer Timer { get; private set; }
-
-        public TaskInfo(string taskName, HiPerfTimer timer)
-        {
-            Name = taskName;
-            Timer = timer;
         }
     }
 }

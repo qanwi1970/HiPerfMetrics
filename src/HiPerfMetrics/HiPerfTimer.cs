@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*************************************************************************
+ * HiPerfTimer.cs
+ * 
+ * This is the original HiPerfTimer by Daniel Strigl found on CodeProject.
+ * 
+ * Changes:
+ * 03/20/2014 - Change namespace to match project
+ * 03/20/2014 - Change access of class to public
+ ************************************************************************/
+using System;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Threading;

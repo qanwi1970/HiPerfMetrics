@@ -11,52 +11,20 @@ namespace HiPerfMetrics
 {
     public class HiPerfMetric
     {
-        [DllImport("Kernel32.dll")]
-        private static extern bool QueryPerformanceCounter(out long lpPerformanceCount);
-
-        [DllImport("Kernel32.dll")]
-        private static extern bool QueryPerformanceFrequency(out long lpFrequency);
-
-        /// <summary>
-        /// Determine if a timer is running
-        /// </summary>
-        public bool Running { get; private set; }
-
-        //Save off when a timer was started
-        private long _startTime;
-
-        //Keep total time
-        private long _totalTime;
-
-        //Result from QueryPerformanceFrequency
-        private readonly long _frequency;
-
-        //Name of the timer
-        private readonly string _timerName;
-
         //Keep a list of tasks being recorded
         private readonly IList<TaskInfo> _taskList;
 
-        //Keep the current task name for saving to _taskList
-        private string _currentTaskName;
+        //Name of the timer
+        private readonly string _metricName;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="timerName">name of the timer for reporting</param>
-        public HiPerfMetric(string timerName)
+        public HiPerfMetric(string metricName)
         {
-            _startTime = 0;
-            _totalTime = 0;
-
-            if (QueryPerformanceFrequency(out _frequency) == false)
-            {
-                // high-performance counter not supported
-                throw new Win32Exception("High performance counter not supported.");
-            }
-
             _taskList = new List<TaskInfo>();
-            _timerName = timerName;
+            _metricName = metricName;
         }
 
         /// <summary>
@@ -65,7 +33,12 @@ namespace HiPerfMetrics
         /// <returns>total time in seconds</returns>
         public double GetTotalTimeInSeconds()
         {
-            return _totalTime / (double)_frequency;
+            double _totalTime = 0;
+            foreach (var taskInfo in _taskList)
+            {
+                _totalTime += taskInfo.Timer.Duration;
+            }
+            return _totalTime;
         }
 
         /// <summary>
@@ -85,15 +58,9 @@ namespace HiPerfMetrics
             // lets do the waiting threads their work
             Thread.Sleep(0);
 
-            if (Running)
-            {
-                throw new Exception("Can't start HiPerfTimer:  it's already running");
-            }
-
-            QueryPerformanceCounter(out _startTime);
-
-            Running = true;
-            _currentTaskName = taskName;
+            var taskInfo = new TaskInfo(taskName, new HiPerfTimer());
+            _taskList.Add(taskInfo);
+            taskInfo.Timer.Start();
         }
 
         /// <summary>
@@ -101,23 +68,7 @@ namespace HiPerfMetrics
         /// </summary>
         public void Stop()
         {
-            long stopTime;
-
-            if (!Running)
-            {
-                throw new Exception("Can't stop HiPerfTimer:  it's not running");
-            }
-
-            QueryPerformanceCounter(out stopTime);
-
-            long lastTime = stopTime - _startTime;
-
-            _totalTime += lastTime;
-
-            _taskList.Add(new TaskInfo(_currentTaskName, (lastTime * 1000) / _frequency));
-
-            Running = false;
-            _currentTaskName = string.Empty;
+            _taskList.Last().Timer.Stop();
         }
 
         /// <summary>
@@ -128,7 +79,7 @@ namespace HiPerfMetrics
         {
             var sb = new StringBuilder();
 
-            sb.Append(string.Format("HiPerfMetric '{0}' running time - {1} seconds<br/>", _timerName,
+            sb.Append(string.Format("HiPerfMetric '{0}' running time - {1} seconds<br/>", _metricName,
                                     GetTotalTimeInSeconds()));
 
             sb.Append("-----------------------------------------<br/>");
@@ -138,8 +89,8 @@ namespace HiPerfMetrics
             foreach (var task in _taskList)
             {
                 sb.Append(
-                    string.Format("{0,5} {1,6:P0}  {2,-14}", task.TimeInMilli,
-                                  (task.TimeInMilli / GetTotalTimeInSeconds() / 1000), task.Name) + "<br/>");
+                    string.Format("{0,5} {1,6:P0}  {2,-14}", task.Timer.Duration * 1000,
+                                  (task.Timer.Duration / GetTotalTimeInSeconds()), task.Name) + "<br/>");
             }
 
             return sb.ToString();
@@ -150,7 +101,7 @@ namespace HiPerfMetrics
         /// </summary>
         public string SummaryMessage
         {
-            get { return string.Format("HiPerfMetric '{0}' running time - {1:0.0000} seconds", _timerName, GetTotalTimeInSeconds()); }
+            get { return string.Format("HiPerfMetric '{0}' running time - {1:0.0000} seconds", _metricName, GetTotalTimeInSeconds()); }
         }
 
         /// <summary>
@@ -168,12 +119,12 @@ namespace HiPerfMetrics
     public class TaskInfo
     {
         public string Name { get; private set; }
-        public long TimeInMilli { get; private set; }
+        public HiPerfTimer Timer { get; private set; }
 
-        public TaskInfo(string taskName, long timeMilli)
+        public TaskInfo(string taskName, HiPerfTimer timer)
         {
             Name = taskName;
-            TimeInMilli = timeMilli;
+            Timer = timer;
         }
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>HiPerfMetrics</id>
+    <version>$version$</version>
+    <title>High Performance Metrics</title>
+    <authors>qanwi1970 jmaslo</authors>
+    <owners>qanwi1970 jmaslo</owners>
+    <licenseUrl>https://github.com/qanwi1970/HiPerfMetrics/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/qanwi1970/HiPerfMetrics</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>This is the initial release, with the default report.</releaseNotes>
+    <copyright>Copyright 2014</copyright>
+  </metadata>
+</package>

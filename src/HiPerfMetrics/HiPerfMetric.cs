@@ -18,7 +18,7 @@ namespace HiPerfMetrics
         private readonly IList<TaskInfo> _taskList;
 
         //Name of the timer
-        private readonly string _metricName;
+        public string MetricName;
 
         /// <summary>
         /// Constructor
@@ -27,7 +27,7 @@ namespace HiPerfMetrics
         public HiPerfMetric(string metricName)
         {
             _taskList = new List<TaskInfo>();
-            _metricName = metricName;
+            MetricName = metricName;
         }
 
         /// <summary>
@@ -70,38 +70,13 @@ namespace HiPerfMetrics
         }
 
         /// <summary>
-        /// Report out all the task timing information
-        /// </summary>
-        /// <returns>report information</returns>
-        public string Report()
-        {
-            var sb = new StringBuilder();
-
-            sb.Append(string.Format("HiPerfMetric '{0}' running time - {1} seconds<br/>", _metricName,
-                                    GetTotalTimeInSeconds()));
-
-            sb.Append("-----------------------------------------<br/>");
-            sb.Append("   ms      %  Task name<br/>");
-            sb.Append("-----------------------------------------<br/>");
-
-            foreach (var task in _taskList)
-            {
-                sb.Append(
-                    string.Format("{0,5} {1,6:P0}  {2,-14}", task.Timer.Duration*1000,
-                                  (task.Timer.Duration/GetTotalTimeInSeconds()), task.Name) + "<br/>");
-            }
-
-            return sb.ToString();
-        }
-
-        /// <summary>
         /// Utility method for logging the performance timer results
         /// </summary>
         public string SummaryMessage
         {
             get
             {
-                return string.Format("HiPerfMetric '{0}' running time - {1:0.0000} seconds", _metricName,
+                return string.Format("HiPerfMetric '{0}' running time - {1:0.0000} seconds", MetricName,
                                      GetTotalTimeInSeconds());
             }
         }

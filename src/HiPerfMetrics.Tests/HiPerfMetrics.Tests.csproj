@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="HiPerfMetricTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\DefaultReportTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

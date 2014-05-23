@@ -41,6 +41,8 @@
     <Compile Include="HiPerfTimer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\DefaultReport.cs" />
+    <Compile Include="Reports\DictionaryReport.cs" />
+    <Compile Include="Reports\IMetricReport.cs" />
     <Compile Include="TaskInfo.cs" />
   </ItemGroup>
   <ItemGroup>

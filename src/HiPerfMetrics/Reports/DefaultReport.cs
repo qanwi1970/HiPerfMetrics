@@ -2,7 +2,7 @@
 
 namespace HiPerfMetrics.Reports
 {
-    public class DefaultReport
+    public class DefaultReport : IMetricReport
     {
         public HiPerfMetric Metric { get; set; }
 

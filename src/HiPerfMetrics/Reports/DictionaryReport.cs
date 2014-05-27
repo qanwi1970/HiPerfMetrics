@@ -22,4 +22,12 @@ namespace HiPerfMetrics.Reports
             }
         }
     }
+
+    public static class DictionaryReportExtensions
+    {
+        public static DictionaryReport GetDictionaryReport(this HiPerfMetric metric)
+        {
+            return new DictionaryReport {Metric = metric};
+        }
+    }
 }

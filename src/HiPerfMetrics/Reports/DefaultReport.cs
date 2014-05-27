@@ -28,4 +28,12 @@ namespace HiPerfMetrics.Reports
             return sb.ToString();
         }
     }
+
+    public static class DefaultReportExtensions
+    {
+        public static DefaultReport GetDefaultReport(this HiPerfMetric metric)
+        {
+            return new DefaultReport {Metric = metric};
+        }
+    }
 }

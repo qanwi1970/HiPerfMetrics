@@ -29,5 +29,23 @@ namespace HiPerfMetrics.Tests.Reports
                 Debug.WriteLine("{0}\t{1}", taskDetail.Key, taskDetail.Value);
             }
         }
+
+        [Test]
+        public void ExtensionTest()
+        {
+            var metric = new HiPerfMetric("NormalTwoTaskReport");
+            metric.Start("task 1");
+            Thread.Sleep(250);
+            metric.Stop();
+            metric.Start("task 2");
+            Thread.Sleep(500);
+            metric.Stop();
+
+            Debug.WriteLine(metric.GetDictionaryReport().SummaryMessage);
+            foreach (var taskDetail in metric.GetDictionaryReport().TaskDetails)
+            {
+                Debug.WriteLine("{0}\t{1}", taskDetail.Key, taskDetail.Value);
+            }
+        }
     }
 }

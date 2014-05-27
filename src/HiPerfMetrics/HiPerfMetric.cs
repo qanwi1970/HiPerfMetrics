@@ -4,7 +4,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 
 namespace HiPerfMetrics
@@ -18,7 +17,7 @@ namespace HiPerfMetrics
         private readonly IList<TaskInfo> _taskList;
 
         //Name of the timer
-        public string MetricName;
+        public string MetricName { get; set; }
 
         /// <summary>
         /// Constructor

@@ -21,8 +21,8 @@ namespace HiPerfMetrics.Reports
             foreach (var task in Metric.TaskDetails)
             {
                 sb.Append(
-                    string.Format("{0:##.000} {1,6:P0}  {2,-14}", task.Timer.Duration * 1000,
-                                  (task.Timer.Duration / totalTime), task.Name) + "\n");
+                    string.Format("{0:##.000} {1,6:P0}  {2,-14}", task.Duration * 1000,
+                                  (task.Duration / totalTime), task.Name) + "\n");
             }
 
             return sb.ToString();

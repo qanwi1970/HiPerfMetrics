@@ -35,7 +35,7 @@ namespace HiPerfMetrics
         /// <returns>total time in seconds</returns>
         public double GetTotalTimeInSeconds()
         {
-            return _taskList.Sum(taskInfo => taskInfo.Timer.Duration);
+            return _taskList.Sum(taskInfo => taskInfo.Duration);
         }
 
         /// <summary>
@@ -55,9 +55,9 @@ namespace HiPerfMetrics
             // lets do the waiting threads their work
             Thread.Sleep(0);
 
-            var taskInfo = new TaskInfo(taskName, new HiPerfTimer());
+            var taskInfo = new TaskInfo(taskName);
             _taskList.Add(taskInfo);
-            taskInfo.Timer.Start();
+            taskInfo.Start();
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace HiPerfMetrics
         /// </summary>
         public void Stop()
         {
-            _taskList.Last().Timer.Stop();
+            _taskList.Last().Stop();
         }
 
         /// <summary>

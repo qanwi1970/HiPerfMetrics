@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace HiPerfMetrics
+﻿namespace HiPerfMetrics.Info
 {
-    public class TaskInfo
+    public class TaskInfo : ITimeInfo
     {
         private readonly HiPerfTimer _timer;
 
@@ -14,7 +12,8 @@ namespace HiPerfMetrics
         /// <summary>
         /// The total duration of this task
         /// </summary>
-        public double Duration { get; private set; }
+        public double Duration {
+            get { return _timer.Duration; } }
 
         /// <summary>
         /// Field constructor
@@ -34,7 +33,6 @@ namespace HiPerfMetrics
         public void Stop()
         {
             _timer.Stop();
-            Duration = _timer.Duration;
         }
     }
 }

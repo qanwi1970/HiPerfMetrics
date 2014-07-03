@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using HiPerfMetrics.Info;
 
 namespace HiPerfMetrics
 {
@@ -14,7 +15,7 @@ namespace HiPerfMetrics
     public class HiPerfMetric
     {
         //Keep a list of tasks being recorded
-        private readonly IList<TaskInfo> _taskList;
+        private readonly IList<ITimeInfo> _timeList;
 
         //Name of the timer
         public string MetricName { get; set; }
@@ -25,7 +26,7 @@ namespace HiPerfMetrics
         /// <param name="metricName">name of the metric for reporting</param>
         public HiPerfMetric(string metricName)
         {
-            _taskList = new List<TaskInfo>();
+            _timeList = new List<ITimeInfo>();
             MetricName = metricName;
         }
 
@@ -35,7 +36,7 @@ namespace HiPerfMetrics
         /// <returns>total time in seconds</returns>
         public double GetTotalTimeInSeconds()
         {
-            return _taskList.Sum(taskInfo => taskInfo.Duration);
+            return _timeList.Sum(taskInfo => taskInfo.Duration);
         }
 
         /// <summary>
@@ -56,8 +57,19 @@ namespace HiPerfMetrics
             Thread.Sleep(0);
 
             var taskInfo = new TaskInfo(taskName);
-            _taskList.Add(taskInfo);
+            _timeList.Add(taskInfo);
             taskInfo.Start();
+        }
+
+        public MetricInfo StartChildMetric(string metricName)
+        {
+            // Let waiting threads do their work
+            Thread.Sleep(0);
+
+            var metricInfo = new MetricInfo(metricName);
+            _timeList.Add(metricInfo);
+
+            return metricInfo;
         }
 
         /// <summary>
@@ -65,7 +77,7 @@ namespace HiPerfMetrics
         /// </summary>
         public void Stop()
         {
-            _taskList.Last().Stop();
+            _timeList.Last().Stop();
         }
 
         /// <summary>
@@ -83,9 +95,9 @@ namespace HiPerfMetrics
         /// <summary>
         /// Utility method for putting the task details into a generic IEnumerable
         /// </summary>
-        public IEnumerable<TaskInfo> TaskDetails
+        public IEnumerable<ITimeInfo> TimeDetails
         {
-            get { return _taskList; }
+            get { return _timeList; }
         }
     }
 }

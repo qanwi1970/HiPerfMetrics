@@ -18,7 +18,7 @@ namespace HiPerfMetrics.Reports
             sb.Append("   ms      %    Task name\n");
             sb.Append("-----------------------------------------\n");
 
-            foreach (var task in Metric.TaskDetails)
+            foreach (var task in Metric.TimeDetails)
             {
                 sb.Append(
                     string.Format("{0:##.000} {1,6:P0}  {2,-14}", task.Duration * 1000,

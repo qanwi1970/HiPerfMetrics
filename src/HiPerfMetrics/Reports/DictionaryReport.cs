@@ -17,7 +17,7 @@ namespace HiPerfMetrics.Reports
         {
             get
             {
-                return Metric.TaskDetails.ToDictionary(taskDetail => taskDetail.Name,
+                return Metric.TimeDetails.ToDictionary(taskDetail => taskDetail.Name,
                     taskDetail => String.Format("{0:##.000} ms", (taskDetail.Duration * 1000.0)));
             }
         }

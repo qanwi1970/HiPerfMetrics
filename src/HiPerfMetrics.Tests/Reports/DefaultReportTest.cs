@@ -25,5 +25,30 @@ namespace HiPerfMetrics.Tests.Reports
             };
             Debug.WriteLine(report.Report());
         }
+
+        [Test]
+        public void ChildMetricsReport()
+        {
+            // Arrange
+            var testMetric = new HiPerfMetric("ParentMetric");
+
+            // Act
+            testMetric.Start("Parent task 1");
+            Thread.Sleep(31);
+            testMetric.Stop();
+            var child = testMetric.StartChildMetric("ChildMetric");
+            child.Start("child task 1");
+            Thread.Sleep(31);
+            child.Stop();
+            child.Start("child task 2");
+            Thread.Sleep(31);
+            child.Stop();
+            testMetric.Start("Parent task 2");
+            Thread.Sleep(31);
+            testMetric.Stop();
+
+            // Report
+            Debug.WriteLine(testMetric.GetDefaultReport().Report());
+        }
     }
 }

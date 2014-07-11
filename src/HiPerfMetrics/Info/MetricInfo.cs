@@ -4,23 +4,18 @@ using System.Linq;
 
 namespace HiPerfMetrics.Info
 {
-    public class MetricInfo : ITimeInfo
+    public class MetricInfo : TaskInfo
     {
         private readonly HiPerfMetric _metric;
 
-        public MetricInfo(string metricName)
+        public MetricInfo()
+        {
+            _metric = new HiPerfMetric();
+        }
+
+        public MetricInfo(string metricName) : base(metricName)
         {
             _metric = new HiPerfMetric(metricName);
-        }
-
-        public string Name
-        {
-            get { return _metric.SummaryMessage; }
-        }
-
-        public double Duration
-        {
-            get { return _metric.GetTotalTimeInSeconds(); }
         }
 
         public void Start()
@@ -36,9 +31,11 @@ namespace HiPerfMetrics.Info
         public void Stop()
         {
             _metric.Stop();
+            Duration = _metric.TotalTimeInSeconds;
+            Name = _metric.SummaryMessage;
         }
 
-        public IEnumerable<ITimeInfo> TimeDetails
+        public List<TaskInfo> TimeDetails
         {
             get { return _metric.TimeDetails; }
         }

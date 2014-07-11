@@ -42,6 +42,7 @@
     <Compile Include="Info\ITimeInfo.cs" />
     <Compile Include="Info\MetricInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\DeepXmlReport.cs" />
     <Compile Include="Reports\DefaultReport.cs" />
     <Compile Include="Reports\DictionaryReport.cs" />
     <Compile Include="Reports\IMetricReport.cs" />

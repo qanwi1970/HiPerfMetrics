@@ -1,19 +1,21 @@
-﻿namespace HiPerfMetrics.Info
+﻿using System.Xml.Serialization;
+
+namespace HiPerfMetrics.Info
 {
-    public class TaskInfo : ITimeInfo
+    [XmlInclude(typeof(MetricInfo))]
+    public class TaskInfo
     {
         private readonly HiPerfTimer _timer;
 
         /// <summary>
         /// The name of a particular task in the larger process
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// The total duration of this task
         /// </summary>
-        public double Duration {
-            get { return _timer.Duration; } }
+        public double Duration { get; set; }
 
         /// <summary>
         /// Field constructor
@@ -25,6 +27,11 @@
             _timer = new HiPerfTimer();
         }
 
+        public TaskInfo()
+        {
+            _timer = new HiPerfTimer();
+        }
+
         public void Start()
         {
             _timer.Start();
@@ -33,6 +40,7 @@
         public void Stop()
         {
             _timer.Stop();
+            Duration = _timer.Duration;
         }
     }
 }

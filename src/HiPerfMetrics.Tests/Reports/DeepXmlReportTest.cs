@@ -1,15 +1,20 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using HiPerfMetrics.Reports;
 using NUnit.Framework;
 
 namespace HiPerfMetrics.Tests.Reports
 {
     [TestFixture]
-    public class DefaultReportTest
+    public class DeepXmlReportTest
     {
         [Test]
-        public void NormalTwoTaskReport()
+        public void NormalTwoTaskreport()
         {
             var metric = new HiPerfMetric("NormalTwoTaskReport");
             metric.Start("task 1");
@@ -19,15 +24,11 @@ namespace HiPerfMetrics.Tests.Reports
             Thread.Sleep(50);
             metric.Stop();
 
-            var report = new DefaultReport
-            {
-                Metric = metric
-            };
-            Debug.WriteLine(report.Report());
+            metric.GetDeepXmlReport().WriteXmlReport(@"E:\logs\NormalTwoTaskReport.xml");
         }
 
         [Test]
-        public void ChildMetricsReport()
+        public void ChildReportTest()
         {
             // Arrange
             var testMetric = new HiPerfMetric("ParentMetric");
@@ -48,7 +49,21 @@ namespace HiPerfMetrics.Tests.Reports
             testMetric.Stop();
 
             // Report
-            Debug.WriteLine(testMetric.GetDefaultReport().Report());
+            testMetric.GetDeepXmlReport().WriteXmlReport(@"E:\logs\ChildReportTest.xml");
+        }
+
+        [Test]
+        public void StringReport()
+        {
+            var metric = new HiPerfMetric("NormalTwoTaskReport");
+            metric.Start("task 1");
+            Thread.Sleep(25);
+            metric.Stop();
+            metric.Start("task 2");
+            Thread.Sleep(50);
+            metric.Stop();
+
+            Debug.WriteLine(metric.GetDeepXmlReport().StringXmlReport());
         }
     }
 }

@@ -119,7 +119,7 @@ namespace HiPerfMetrics.Tests
 
             // Assert
             Assert.AreEqual(3, testMetric.TimeDetails.Count());
-            Assert.GreaterOrEqual(testMetric.GetTotalTimeInSeconds(), .120);
+            Assert.GreaterOrEqual(testMetric.TotalTimeInSeconds, .120);
             Assert.AreEqual(2, child.TimeDetails.Count());
             Assert.GreaterOrEqual(child.Duration, .06);
         }

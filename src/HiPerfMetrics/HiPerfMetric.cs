@@ -47,10 +47,20 @@ namespace HiPerfMetrics
             }
             set { _totalTime = value; } }
 
+        private string _summary;
         /// <summary>
         /// Utility method for logging the performance timer results
         /// </summary>
-        public string SummaryMessage { get; set; }
+        public string SummaryMessage
+        {
+            get
+            {
+                _summary = string.Format("'{0}': Time = {1:0.0000} seconds", MetricName,
+                    TotalTimeInSeconds);
+                return _summary;
+            }
+            set { _summary = value; }
+        }
 
         public HiPerfMetric()
         {
@@ -106,9 +116,6 @@ namespace HiPerfMetrics
         public void Stop()
         {
             TimeDetails.Last().Stop();
-            TotalTimeInSeconds = TimeDetails.Sum(taskInfo => taskInfo.Duration);
-            SummaryMessage = string.Format("HiPerfMetric '{0}' running time - {1:0.0000} seconds", MetricName,
-                TotalTimeInSeconds);
         }
     }
 }

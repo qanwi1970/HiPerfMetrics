@@ -1,7 +1,4 @@
-﻿using System.CodeDom.Compiler;
-using System.Diagnostics;
-using System.IO;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -25,8 +22,9 @@ namespace HiPerfMetrics.Reports
         public string StringXmlReport()
         {
             var writer = new StringWriter();
+            var xmlWriter = XmlWriter.Create(writer, new XmlWriterSettings {Indent = false});
             var serializer = new XmlSerializer(typeof (HiPerfMetric));
-            serializer.Serialize(writer, Metric);
+            serializer.Serialize(xmlWriter, Metric);
             return writer.ToString();
         }
     }

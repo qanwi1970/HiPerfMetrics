@@ -65,5 +65,34 @@ namespace HiPerfMetrics.Tests.Reports
 
             Debug.WriteLine(metric.GetDeepXmlReport().StringXmlReport());
         }
+
+        [Test]
+        public void GrandpaReport()
+        {
+            // Arrange
+            var testMetric = new HiPerfMetric("GrandpaReport");
+
+            // Act
+            testMetric.Start("Grandparent task 1");
+            Thread.Sleep(31);
+            testMetric.Stop();
+            var parent1 = testMetric.StartChildMetric("Parent 1 Metric");
+            parent1.Start("Parent 1 task 1");
+            Thread.Sleep(31);
+            parent1.Stop();
+            var child1 = parent1.StartChildMetric("Child 1 metric");
+            child1.Start("Child 1 task 1");
+            Thread.Sleep(31);
+            child1.Stop();
+            child1.Start("Child 1 task 2");
+            Thread.Sleep(31);
+            child1.Stop();
+            parent1.Start("Parent 1 task 2");
+            Thread.Sleep(31);
+            parent1.Stop();
+
+            // Report
+            testMetric.GetDeepXmlReport().WriteXmlReport(@"E:\logs\GrandpaReportTest.xml");
+        }
     }
 }

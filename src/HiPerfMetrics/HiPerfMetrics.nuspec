@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/qanwi1970/HiPerfMetrics</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>The initial 1.0.0 release, ready for prime time</releaseNotes>
+    <releaseNotes>1.1.1 - Allow child metrics to also have child metrics</releaseNotes>
     <copyright>Copyright 2014</copyright>
 	<tags>HiPerfMetrics Performance Metrics</tags>
   </metadata>

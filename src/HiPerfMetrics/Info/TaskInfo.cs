@@ -32,12 +32,12 @@ namespace HiPerfMetrics.Info
             _timer = new HiPerfTimer();
         }
 
-        public void Start()
+        public virtual void Start()
         {
             _timer.Start();
         }
 
-        public void Stop()
+        public virtual void Stop()
         {
             _timer.Stop();
             Duration = _timer.Duration;

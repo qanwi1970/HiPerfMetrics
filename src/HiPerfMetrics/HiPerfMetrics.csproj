@@ -39,7 +39,6 @@
   <ItemGroup>
     <Compile Include="HiPerfMetric.cs" />
     <Compile Include="HiPerfTimer.cs" />
-    <Compile Include="Info\ITimeInfo.cs" />
     <Compile Include="Info\MetricInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\DeepXmlReport.cs" />

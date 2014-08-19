@@ -49,7 +49,7 @@ namespace HiPerfMetrics.Tests
             testMetric.Stop();
 
             // Assert
-            Assert.GreaterOrEqual(testMetric.GetTotalTimeInSeconds(), totalTime);
+            Assert.GreaterOrEqual(testMetric.TotalTimeInSeconds, totalTime);
         }
 
         [Test]
@@ -93,7 +93,7 @@ namespace HiPerfMetrics.Tests
 
             // Assert
             Assert.AreEqual(1, testMetric.TimeDetails.Count());
-            Assert.AreEqual("", ((TaskInfo)testMetric.TimeDetails.First()).Name);
+            Assert.AreEqual("Step 01", ((TaskInfo)testMetric.TimeDetails.First()).Name);
         }
 
         [Test]

@@ -15,7 +15,7 @@ namespace HiPerfMetrics.Info
         /// <summary>
         /// The total duration of this task
         /// </summary>
-        public double Duration { get; set; }
+        public virtual double Duration { get; set; }
 
         /// <summary>
         /// Field constructor

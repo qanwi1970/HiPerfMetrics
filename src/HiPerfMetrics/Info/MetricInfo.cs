@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
@@ -7,33 +6,64 @@ namespace HiPerfMetrics.Info
 {
     public class MetricInfo : TaskInfo
     {
-        private readonly HiPerfMetric _metric;
-
         public MetricInfo()
         {
-            _metric = new HiPerfMetric();
+            TimeDetails = new List<TaskInfo>();
         }
 
         public MetricInfo(string metricName) : base(metricName)
         {
-            _metric = new HiPerfMetric(metricName);
+            TimeDetails = new List<TaskInfo>();
+        }
+
+        public List<TaskInfo> TimeDetails { get; set; }
+
+        /// <summary>
+        /// Sum of all the steps' durations
+        /// </summary>
+        public double TotalTimeInSeconds
+        {
+            get { return TimeDetails.Sum(taskInfo => taskInfo.Duration); }
+            set { }
+        }
+
+        public override double Duration
+        {
+            get { return TotalTimeInSeconds; }
+            set { }
+        }
+
+        /// <summary>
+        /// Utility method for logging the performance timer results
+        /// </summary>
+        public string SummaryMessage
+        {
+            get
+            {
+                return string.Format("'{0}': Time = {1:0.0000} seconds", Name,
+                    TotalTimeInSeconds);
+            }
+            set { }
         }
 
         public override void Start()
         {
-            _metric.Start("Step " + _metric.TimeDetails.Count() + 1);
+            Start("Step " + TimeDetails.Count() + 1);
         }
 
         public void Start(string taskName)
         {
-            _metric.Start(taskName);
+            // lets do the waiting threads their work
+            Thread.Sleep(0);
+
+            var taskInfo = new TaskInfo(taskName);
+            TimeDetails.Add(taskInfo);
+            taskInfo.Start();
         }
 
         public override void Stop()
         {
-            _metric.Stop();
-            Duration = _metric.TotalTimeInSeconds;
-            Name = _metric.SummaryMessage;
+            TimeDetails.Last().Stop();
         }
 
         public MetricInfo StartChildMetric(string metricName)
@@ -50,11 +80,6 @@ namespace HiPerfMetrics.Info
         public void AddChildMetric(MetricInfo childMetricInfo)
         {
             TimeDetails.Add(childMetricInfo);
-        }
-
-        public List<TaskInfo> TimeDetails
-        {
-            get { return _metric.TimeDetails; }
         }
     }
 }

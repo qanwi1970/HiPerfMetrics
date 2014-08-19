@@ -28,12 +28,5 @@
       <FileName>Info\TaskInfo.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="HiPerfMetrics.Info.ITimeInfo">
-    <Position X="12.25" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAACACAAAAAAAAAAQAAAAAAAAAIAAAAAAAAAA=</HashCode>
-      <FileName>Info\ITimeInfo.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Font Name="Tahoma" Size="8.25" />
 </ClassDiagram>

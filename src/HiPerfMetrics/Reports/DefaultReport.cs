@@ -8,7 +8,7 @@ namespace HiPerfMetrics.Reports
 
         public string Report()
         {
-            var totalTime = Metric.GetTotalTimeInSeconds();
+            var totalTime = Metric.TotalTimeInSeconds;
             var sb = new StringBuilder();
 
             sb.Append(string.Format("HiPerfMetric '{0}' running time - {1:##.###} seconds\n", Metric.MetricName,

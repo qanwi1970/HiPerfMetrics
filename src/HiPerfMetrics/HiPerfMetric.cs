@@ -2,10 +2,7 @@
  * HiPerfMetric.cs
  ************************************************************************/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using HiPerfMetrics.Info;
 
 namespace HiPerfMetrics
@@ -15,56 +12,43 @@ namespace HiPerfMetrics
     /// </summary>
     public class HiPerfMetric
     {
+        private readonly MetricInfo _metricInfo;
+
         /// <summary>
         /// The list of tasks and child metrics that make up this metric
         /// </summary>
-        public List<TaskInfo> TimeDetails { get; set; }
+        public List<TaskInfo> TimeDetails { get { return _metricInfo.TimeDetails; } }
 
         /// <summary>
         /// Name of the timer
         /// </summary>
-        public string MetricName { get; set; }
-
-        /// <summary>
-        /// Get the total timer time in seconds
-        /// </summary>
-        /// <returns>total time in seconds</returns>
-        [Obsolete("Use new TotalTimeInSeconds property instead.")]
-        public double GetTotalTimeInSeconds()
+        public string MetricName
         {
-            return TotalTimeInSeconds;
+            get { return _metricInfo.Name; }
+            set { }
         }
 
-        private double _totalTime;
         /// <summary>
         /// Sum of all the steps' durations
         /// </summary>
-        public double TotalTimeInSeconds {
-            get
-            {
-                _totalTime = TimeDetails.Sum(taskInfo => taskInfo.Duration);
-                return _totalTime;
-            }
-            set { _totalTime = value; } }
+        public double TotalTimeInSeconds
+        {
+            get { return _metricInfo.TotalTimeInSeconds; }
+            set { }
+        }
 
-        private string _summary;
         /// <summary>
         /// Utility method for logging the performance timer results
         /// </summary>
         public string SummaryMessage
         {
-            get
-            {
-                _summary = string.Format("'{0}': Time = {1:0.0000} seconds", MetricName,
-                    TotalTimeInSeconds);
-                return _summary;
-            }
-            set { _summary = value; }
+            get { return _metricInfo.SummaryMessage; }
+            set { }
         }
 
         public HiPerfMetric()
         {
-            TimeDetails = new List<TaskInfo>();
+            _metricInfo = new MetricInfo();
         }
 
         /// <summary>
@@ -73,8 +57,7 @@ namespace HiPerfMetrics
         /// <param name="metricName">name of the metric for reporting</param>
         public HiPerfMetric(string metricName)
         {
-            TimeDetails = new List<TaskInfo>();
-            MetricName = metricName;
+            _metricInfo = new MetricInfo(metricName);
         }
 
         /// <summary>
@@ -82,7 +65,7 @@ namespace HiPerfMetrics
         /// </summary>
         public void Start()
         {
-            Start("");
+            _metricInfo.Start();
         }
 
         /// <summary>
@@ -91,23 +74,12 @@ namespace HiPerfMetrics
         /// <param name="taskName">name of task</param>
         public void Start(string taskName)
         {
-            // lets do the waiting threads their work
-            Thread.Sleep(0);
-
-            var taskInfo = new TaskInfo(taskName);
-            TimeDetails.Add(taskInfo);
-            taskInfo.Start();
+            _metricInfo.Start(taskName);
         }
 
         public MetricInfo StartChildMetric(string metricName)
         {
-            // Let waiting threads do their work
-            Thread.Sleep(0);
-
-            var metricInfo = new MetricInfo(metricName);
-            TimeDetails.Add(metricInfo);
-
-            return metricInfo;
+            return _metricInfo.StartChildMetric(metricName);
         }
 
         /// <summary>
@@ -115,7 +87,8 @@ namespace HiPerfMetrics
         /// </summary>
         public void Stop()
         {
-            TimeDetails.Last().Stop();
+            _metricInfo.Stop();
         }
+
     }
 }

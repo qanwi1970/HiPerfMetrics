@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="HiPerfMetrics.HiPerfTimer">
+    <Position X="5.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABACAAACACAAAAAAggAAAAAAAAAAAAoAAAAAAAAAA=</HashCode>
+      <FileName>HiPerfTimer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HiPerfMetrics.HiPerfMetric">
+    <Position X="8.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAACgAAACABAAAAABAAAAAgAACMAAAAAAAAAA=</HashCode>
+      <FileName>HiPerfMetric.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HiPerfMetrics.Info.MetricInfo">
+    <Position X="10.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAABACAAABAAAAAAAAAIIAAAAAAAAA=</HashCode>
+      <FileName>Info\MetricInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HiPerfMetrics.Info.TaskInfo">
+    <Position X="10.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAiAAAAAAAAAAQAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Info\TaskInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="HiPerfMetrics.Info.ITimeInfo">
+    <Position X="12.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACACAAAAAAAAAAQAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Info\ITimeInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

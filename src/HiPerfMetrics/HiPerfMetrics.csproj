@@ -49,7 +49,10 @@
     <Compile Include="Info\TaskInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="HiPerfMetrics.nuspec" />
+    <None Include="HiPerfMetrics.cd" />
+    <None Include="HiPerfMetrics.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

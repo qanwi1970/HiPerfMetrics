@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HiPerfMetricTest.cs" />
+    <Compile Include="Info\MetricInfoTest.cs" />
+    <Compile Include="Info\TaskInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\DeepXmlReportTest.cs" />
     <Compile Include="Reports\DefaultReportTest.cs" />

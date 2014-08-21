@@ -24,13 +24,13 @@ namespace HiPerfMetrics.Tests.Info
         public void name_ctor_success()
         {
             // Arrange
-            const string testName = "Test Name";
+            const string TEST_NAME = "Test Name";
 
             // Act
-            var taskInfo = new TaskInfo(testName);
+            var taskInfo = new TaskInfo(TEST_NAME);
 
             // Assert
-            Assert.AreEqual(testName, taskInfo.Name);
+            Assert.AreEqual(TEST_NAME, taskInfo.Name);
             Assert.AreEqual(0.0d, taskInfo.Duration);
         }
 

@@ -29,5 +29,11 @@ namespace HiPerfMetrics.Reports
         {
             return new DictionaryReport {Metric = metric};
         }
+
+	    public static Dictionary<string, string> ReportAsDictionary(this HiPerfMetric hiPerfMetric)
+	    {
+		    var report = new DictionaryReport {Metric = hiPerfMetric};
+		    return report.TaskDetails;
+	    }
     }
 }

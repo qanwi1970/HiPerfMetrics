@@ -35,5 +35,11 @@ namespace HiPerfMetrics.Reports
         {
             return new DeepXmlReport {Metric = hiPerfMetric};
         }
+
+	    public static string ReportAsDeepXml(this HiPerfMetric hiPerfMetric)
+	    {
+		    var report = new DeepXmlReport {Metric = hiPerfMetric};
+		    return report.StringXmlReport();
+	    }
     }
 }

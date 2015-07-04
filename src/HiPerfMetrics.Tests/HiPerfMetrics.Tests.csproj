@@ -51,6 +51,7 @@
     <Compile Include="Reports\DeepXmlReportTest.cs" />
     <Compile Include="Reports\DefaultReportTest.cs" />
     <Compile Include="Reports\DictionaryReportTest.cs" />
+    <Compile Include="Reports\JsonReportTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

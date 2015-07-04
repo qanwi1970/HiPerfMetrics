@@ -35,5 +35,11 @@ namespace HiPerfMetrics.Reports
         {
             return new DefaultReport {Metric = metric};
         }
+
+	    public static string ReportAsDefault(this HiPerfMetric hiPerfMetric)
+	    {
+		    var report = new DefaultReport {Metric = hiPerfMetric};
+		    return report.Report();
+	    }
     }
 }

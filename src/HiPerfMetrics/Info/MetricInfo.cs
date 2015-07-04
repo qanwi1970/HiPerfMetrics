@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace HiPerfMetrics.Info
 {
-    public class MetricInfo : TaskInfo
+    public class MetricInfo : TaskInfo, IStartStop
     {
         public MetricInfo()
         {

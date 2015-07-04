@@ -10,7 +10,7 @@ namespace HiPerfMetrics
     /// <summary>
     /// This is the main class for creating associated timers.
     /// </summary>
-    public class HiPerfMetric
+    public class HiPerfMetric : IStartStop
     {
         private readonly MetricInfo _metricInfo;
 

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>HiPerfMetrics</id>
+    <id>$id$</id>
     <version>$version$</version>
     <title>High Performance Metrics</title>
     <authors>qanwi1970 jeffmck</authors>
@@ -10,8 +10,8 @@
     <projectUrl>https://github.com/qanwi1970/HiPerfMetrics</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>1.1.1 - Allow child metrics to also have child metrics</releaseNotes>
-    <copyright>Copyright 2014</copyright>
+    <releaseNotes>1.2.0 - Add JsonReport</releaseNotes>
+    <copyright>Copyright 2015</copyright>
 	<tags>HiPerfMetrics Performance Metrics</tags>
   </metadata>
 </package>

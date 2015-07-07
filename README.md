@@ -83,11 +83,11 @@ just add a line like this before returning from the method:
 
 When you check your log, you'll have an entry like this:
 
-`
-    HiPerfMetric 'NormalTwoTaskReport' running time - .484 seconds
-    -----------------------------------------
-       ms      %    Task name
-    -----------------------------------------
-    435.050   90 %  task 1        
-    49.056   10 %  task 2        
-`
+```
+HiPerfMetric 'NormalTwoTaskReport' running time - .484 seconds
+-----------------------------------------
+   ms      %    Task name
+-----------------------------------------
+435.050   90 %  task 1        
+49.056   10 %  task 2        
+```

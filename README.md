@@ -4,7 +4,7 @@ HiPerfMetrics
 Time individual sections of code and get detailed metrics back on performance.
 
 After the default performance counters have told you that a method takes *way* longer than you'd like, you need to dig into that method and find out what part
-of it is taking so long. But this is the real world, and the method in question is very important and does a lot of very important things. This is where
+of it is taking so long. However this is the real world, and the method in question is very important and does a lot of very important things. In other words, it's very complex. This is where
 __HiPerfMetrics__ comes in. Place simple Start and Stop calls around sections of your code and get detailed metrics on how long each section takes.
 
 Installation
@@ -79,15 +79,21 @@ public CompleteOrder MyImportantMethod(int custId, OrderData orderData)
 Choose a report that fits your needs and output it somewhere. The easiest way is to log the default report, then pull it up in the log afterwards. To do that,
 just add a line like this before returning from the method:
 
-`_logger.Debug(hiPerfMetrics.ReportAsDefault());`
+```C#
+var returnValue = MapOrder(processedOrder);
+
+_logger.Debug(hiPerfMetrics.ReportAsDefault());
+return returnValue;
+```
 
 When you check your log, you'll have an entry like this:
 
 ```
-HiPerfMetric 'NormalTwoTaskReport' running time - .484 seconds
+HiPerfMetric 'My Important Method' running time - .613 seconds
 -----------------------------------------
    ms      %    Task name
 -----------------------------------------
-435.050   90 %  task 1        
-49.056   10 %  task 2        
+435.050   71 %  Initialization        
+49.056   8 %  Get Customer
+128.987   21 %  Processing Logic
 ```

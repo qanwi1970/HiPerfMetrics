@@ -78,7 +78,7 @@ namespace HiPerfMetrics.Tests.Info
 
             // Assert
             Assert.LessOrEqual(.030, taskInfo.Duration);
-            Assert.GreaterOrEqual(.050, taskInfo.Duration);
+            Assert.GreaterOrEqual(.060, taskInfo.Duration);
         }
 
         [Test]

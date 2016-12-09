@@ -1,7 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using HiPerfMetrics.Info;
+using HiPerfMetrics.Reports;
 using NUnit.Framework;
 
 namespace HiPerfMetrics.Tests
@@ -122,6 +124,36 @@ namespace HiPerfMetrics.Tests
             Assert.GreaterOrEqual(testMetric.TotalTimeInSeconds, .120);
             Assert.AreEqual(2, child.TimeDetails.Count());
             Assert.GreaterOrEqual(child.Duration, .06);
+        }
+
+        /// <summary>
+        /// Question: What is the performance impact of adding this instrumentation to my code?
+        /// Answer: Run this test and see for yourself. (Spoiler: It's measured in microseconds)
+        /// </summary>
+        [Test]
+        public void PerformanceImpactTest()
+        {
+            // Arrange
+            var realMetric = new HiPerfMetric("PerformanceImpactTest");
+            const int iterations = 1000;
+
+            // Act
+            realMetric.Start();
+            for (var i = 0; i < iterations; i++)
+            {
+                var testMetric = new HiPerfMetric("Test");
+                testMetric.Start("Step 1");
+                testMetric.Stop();
+                testMetric.Start("Step 2");
+                testMetric.Stop();
+                testMetric.Start("Step 3");
+                testMetric.Stop();
+            }
+            realMetric.Stop();
+
+            // Assert
+            Console.WriteLine(realMetric.ReportAsDefault());
+            Console.WriteLine($"Each three step metric took {(realMetric.TotalTimeInSeconds * 1000000f)/(double)iterations} microseconds");
         }
     }
 }
